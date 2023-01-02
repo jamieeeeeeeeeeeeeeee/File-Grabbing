@@ -1,17 +1,10 @@
-# file-plucker
-An alternative to hosting files online. Instead recreate your own files data using data from existing ones.
-This can also be used for compressing files! 
+# File Grabbing
+Sort of a compression file but also not really! It turns your original file into a file containing chunks of matching data with a superfile. And now anyone with access to the superfile, and your chunk file can recreate your original file!
 
 So far I have tested this on .exe files, which seems like the best file type for this to work with.
 Video files would be interesting to try.
 
-## How it works ##
-The shrink.c file finds matching chunks from your file and the *superfile*.
-*A good superfile would be a large file that contains data similar to your own!*
-The unshrink.c then spits out a file that contains the offset and length of the matching chunks.
-
-*I've not implemented the disperse.c file yet!*
-The unshrink.c file will take the shrink.c output, and using the *superfile* it will recreate your original file.
+.c file will take the shrink.c output (output.bin), and using the *superfile* it will recreate your original file.
 
 ## Why? ##
 I wanted a way to host ~~malicious~~ files without actually hosting them.
