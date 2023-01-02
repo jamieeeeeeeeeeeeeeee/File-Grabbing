@@ -17,4 +17,4 @@ The disperse.c file will take the plucker.c output, and using the *superfile* it
 I wanted a way to host ~~malicious~~ files without actually hosting them.
 
 ## Proof of concept ##
-In my proof of concept the compression percentage is only 64%. I'm hoping with a more optimal superfile that this can be made a lot better. Another way of making it small is encoding the chunk file differently. Currently the file is a memory bin of (4 byte int | 2 byte int) pairs. Using hexadecimal and a safer .txt format this could be made a lot smaller.
+In my proof of concept the compression percentage is only 64%. I'm hoping with a more optimal superfile that this can be made a lot better. Another way of making it small is encoding the chunk file differently. Currently the file is a memory bin of (4 byte int | 2 byte int) pairs.
