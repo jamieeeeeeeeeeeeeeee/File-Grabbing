@@ -8,7 +8,7 @@ To compress a file `implode <parent-file> <target-file>`
 
 To decompress a file `explode <parent-file> <target-file>`
 
-I have provided an example with instructions so you can test it out yourself! (See example\INSTRUCTIONS.md). This example 'compresses' helloworld.exe to 89% of its original size!
+I have provided an example with instructions so you can test it out yourself! This example 'compresses' helloworld.exe to 89% of its original size!
 
 # Notes! #
 **Please beware that this is very likley to be unsafe!!**
