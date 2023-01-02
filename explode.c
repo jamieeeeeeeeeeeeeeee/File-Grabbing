@@ -10,11 +10,8 @@ typedef struct {
 
 // this will be the program that reforms the file from the chunks
 int main(int argc, char *argv[]) {
-  // check for correct number of arguments
-  argv[2] = "output.bin";
-  argv[1] = "superfile.exe";
-  
-  if (argc != 3 && 1 == 0) {
+  // check for correct number of arguments 
+  if (argc != 3) {
     printf("Usage: %s <super file> <chunk.bin>", argv[0]);
     return 1;
   }
