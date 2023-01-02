@@ -1,4 +1,4 @@
-# file-plucker
+# File Grabbing
 An alternative to hosting files online. Instead pluck your own files data using data from existing ones.
 This can also be used for compressing files! 
 
