@@ -1,5 +1,6 @@
 # Example Instructions #
-You can use the pre-compiled test.exe file (or compile it yourself if you don't trust me :)).
+You can use the pre-compiled test.exe file, or you can compile it yourself if you don't trust me :) !
+
 
 **(Note these files are not in the same directory as implode.exe / explode.exe!)**
 Run `implode.exe [parentfile.exe] [helloworld.exe]` to shrink the hello world executable.
