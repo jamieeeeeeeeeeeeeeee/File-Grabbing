@@ -6,7 +6,7 @@ So far I have tested this on .exe files, which seems like the best file type for
 Video files would be interesting to try.
 
 ## How it works ##
-The plucker.c file finds the matching chunks from your file and the *superfile*.
+The plucker.c file finds matching chunks from your file and the *superfile*.
 *A good superfile would be a large file that contains data similar to your own!*
 The plucker.c then spits out a file that contains the offset and length of the matching chunks.
 
