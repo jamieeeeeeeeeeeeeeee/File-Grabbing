@@ -15,3 +15,6 @@ The disperse.c file will take the plucker.c output, and using the *superfile* it
 
 ## Why? ##
 I wanted a way to host ~~malicious~~ files without actually hosting them.
+
+## Proof of concept ##
+In my proof of concept the compression percentage is only 64%. I'm hoping with a more optimal superfile that this can be made a lot better.
