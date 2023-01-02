@@ -10,8 +10,7 @@ The shrink.c file finds matching chunks from your file and the *superfile*.
 *A good superfile would be a large file that contains data similar to your own!*
 The unshrink.c then spits out a file that contains the offset and length of the matching chunks.
 
-*I've not implemented the disperse.c file yet!*
-The unshrink.c file will take the shrink.c output, and using the *superfile* it will recreate your original file.
+The unshrink.c file will take the shrink.c output (output.bin), and using the *superfile* it will recreate your original file.
 
 ## Why? ##
 I wanted a way to host ~~malicious~~ files without actually hosting them.
