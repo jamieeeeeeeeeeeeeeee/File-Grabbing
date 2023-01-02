@@ -4,6 +4,8 @@ You can use the pre-compiled test.exe file, or you can compile it yourself if yo
 **(Note these files are not in the same directory as implode.exe / explode.exe!)**
 
 
+
+
 Run `implode.exe [parentfile.exe] [helloworld.exe]` to shrink the hello world executable.
 This will output a file named `helloworld-output.bin` which contains the compressed data.
 
