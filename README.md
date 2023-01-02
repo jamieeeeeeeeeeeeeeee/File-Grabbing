@@ -6,15 +6,16 @@ So far I have tested this on .exe files, which seems like the best file type for
 Video files would be interesting to try.
 
 ## How it works ##
-The plucker.c file finds matching chunks from your file and the *superfile*.
+The shrink.c file finds matching chunks from your file and the *superfile*.
 *A good superfile would be a large file that contains data similar to your own!*
-The plucker.c then spits out a file that contains the offset and length of the matching chunks.
+The unshrink.c then spits out a file that contains the offset and length of the matching chunks.
 
 *I've not implemented the disperse.c file yet!*
-The disperse.c file will take the plucker.c output, and using the *superfile* it will recreate your original file.
+The unshrink.c file will take the shrink.c output, and using the *superfile* it will recreate your original file.
 
 ## Why? ##
 I wanted a way to host ~~malicious~~ files without actually hosting them.
 
 ## Proof of concept ##
-In my proof of concept the compression percentage is only 64%. I'm hoping with a more optimal superfile that this can be made a lot better. Another way of making it small is encoding the chunk file differently. Currently the file is a memory bin of (4 byte int | 2 byte int) pairs.
+In my proof of concept the compression percentage is only 89%. I'm hoping with a more optimal superfile that this can be made a better.
+Additionally, there will be better ways to store the output.bin data, rather than just storing (4 bytes offset, 2 bytes length) in a binary file.

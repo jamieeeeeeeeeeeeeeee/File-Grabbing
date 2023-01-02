@@ -92,9 +92,20 @@ Result find_biggest_chunk (ByteArray* target_file, ByteArray* super_file) {
   return result;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+  // pre checks!
+  if (argc != 3) {
+    printf("Usage: %s <super file> <target file>", argv[0]);
+    return 1;
+  }
+
+  if (sizeof(unsigned long) != 4 || sizeof(unsigned short) != 2){
+    printf("Error unsigned long or unsigned short are too big!");
+    return 1;
+  }
+
   // open file to be shrank
-  FILE *target_file = fopen("target.exe", "rb");
+  FILE *target_file = fopen(argv[2], "rb");
 
   if (target_file == NULL) {
     printf("Error opening file");
@@ -121,7 +132,7 @@ int main() {
   fclose(target_file);
 
   // open super file
-  FILE *super_file = fopen("superfile.exe", "rb");
+  FILE *super_file = fopen(argv[1], "rb");
 
   if (super_file == NULL) {
     printf("Error opening file");
@@ -148,6 +159,9 @@ int main() {
   fclose(super_file);
 
   // Algorithm Testing \\.
+
+  // create output.bin file
+  FILE *output_file = fopen("output.bin", "wb");
   size_t new_size = 0;
   
   // biggest chunk algorithm (this is magnitudes slower than linear)
@@ -171,6 +185,7 @@ int main() {
  // linear algorithm
   size_t start = 0;
   size_t chunk = 1;
+  size_t target_start = 0;
   do {
     size_t memres = memmem(super_bytes->data, super_bytes->size, target_bytes->data + start, chunk);
     if (memres == 0) {
@@ -181,18 +196,43 @@ int main() {
       else {
         if (chunk > MAX_CHUNK) {
           chunk = MAX_CHUNK;
+        } 
+        // 4 bytes 
+        chunk -= 1;
+        start += chunk;
+
+        int old = ftell(output_file);
+        // write start (4 bytes) followed by chunk (2 bytes) to output file
+        unsigned long offset = (unsigned long) target_start;
+        unsigned short size = (unsigned short) chunk;
+        fwrite(&offset, 4, 1, output_file);
+        fwrite(&size, 2, 1, output_file);     
+        
+        // double check size of file
+        int new = ftell(output_file);
+        if (new - old != 6) {
+          printf("Error: Something went wrong! Wrote %d bytes instead of 6", new - old);
+          return 1;
         }
-        start += chunk - 1;
+        printf("Byte %d of %d\r", start, target_bytes->size);
+
         chunk = 1;
         new_size += 6;
-        printf("Byte %d of %d\r", start, target_bytes->size);
       }
     }
     else {
+      target_start = memres - 1;
       chunk++;
     }
   } while(start < target_bytes->size);
 
+  // read size of output.bin
+  fseek(output_file, 0, SEEK_END);
+  size_t output_file_size = ftell(output_file);
+  if (new_size != output_file_size) {
+    printf("Error: File size doesn't look correct! >:( (%d != %d)", new_size, output_file_size);
+    return 1;
+  }
   printf("\n\nNew size: %d\n", new_size);
   printf("Old size: %d\n", target_file_size);
   printf("\nCompression ratio: %f\n", (float)new_size / (float)target_file_size);
@@ -203,5 +243,6 @@ int main() {
   free(target_bytes);
   free(super_bytes->data);
   free(super_bytes);
+  fclose(output_file);
   return 0;
 }
