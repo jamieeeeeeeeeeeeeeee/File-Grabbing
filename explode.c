@@ -9,6 +9,11 @@ typedef struct {
 } ByteArray;
 
 // this will be the program that reforms the file from the chunks
+// chunk file holds compressed data in the form of indexes
+// super file holds strings of data that the original file is likely to hold, allowing compression
+// (the super file is already on the systems computer, e.g. entire coding blocks could be compressed into a single index) 
+// original file is the file that is recreated from the chunk file
+
 int main(int argc, char *argv[]) {
   // check for correct number of arguments 
   if (argc != 3) {
@@ -81,16 +86,29 @@ int main(int argc, char *argv[]) {
     // get offset
     unsigned long offset = 0;
     memcpy(&offset, chunk_bytes->data + chunk_offset, 4);
+    
     // get size
     unsigned short size = 0;
     chunk_offset += 4;
     memcpy(&size, chunk_bytes->data + chunk_offset, 2);
     chunk_offset += 2;
+    
     // write chunk from superfile into original
     printf("offset: %d, size: %d\n", offset, size);
     fwrite(super_bytes->data + (size_t)offset, 1, size, original_file);
 
     chunk_bytes->size -= 6;
   }
+  
+  // close original file
+  fclose(original_file);
+  
+  // free the mallocs
+  if (chunk_bytes->data != NULL) free(chunk_bytes->data);
+  if (chunk_bytes != NULL) free(chunk_bytes);
+  
+  if (super_bytes->data != NULL) free(super_bytes->data);
+  if (super_bytes != NULL) free(super​_bytes)
+  
   printf("Finished!\n");
 }
